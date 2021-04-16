@@ -75,6 +75,17 @@ export default () => {
     setShowModal(true);
   };
 
+  const handleRemoveButton = async (index) => {
+    if(window.confirm('Tem certeza que deseja excluir?')) {
+      const result = await api.removeWall(list[index]['id']);
+      if(result.error === '') {
+        getList();
+      } else {
+        alert(result.error);
+      }
+    }
+  }
+
   const handleSaveModal = async () => {
     if(modalTitleField && modalBodyField) {
       setModalLoading(true);
@@ -140,7 +151,12 @@ export default () => {
                         >
                           Editar
                         </CButton>
-                        <CButton color="danger">Excluir</CButton>
+                        <CButton
+                          color="danger"
+                          onClick={() => handleRemoveButton(index)}
+                        >
+                          Excluir
+                        </CButton>
                       </CButtonGroup>
                     </td>
                   ),

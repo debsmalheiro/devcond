@@ -78,12 +78,18 @@ export default () => {
   const handleSaveModal = async () => {
     if(modalTitleField && modalBodyField) {
       setModalLoading(true);
-      const result = await  api.updateWall(modalId, {
+      let result;
+      let data = {
         title: modalTitleField,
         body: modalBodyField,
-      });
+      }
+      if(modalId === '') {
+        result = await api.addWall(data);
+      } else {
+        result = await  api.updateWall(modalId, data);
+      }
       setModalLoading(false);
-      if(result.error) {
+      if(result.error === '') {
         setShowModal(false);
         getList();
       } else {
@@ -94,6 +100,13 @@ export default () => {
     }
   }
 
+  const handleNewWall = () => {
+    setModalId('');
+    setModalTitleField('');
+    setModalBodyField('');
+    setShowModal(true);
+  }
+
   return (
     <>
       <CRow>
@@ -102,7 +115,7 @@ export default () => {
 
           <CCard>
             <CCardHeader>
-              <CButton color="primary">
+              <CButton color="primary" onClick={handleNewWall}>
                 <CIcon name="cil-check" /> Novo Aviso
               </CButton>
             </CCardHeader>
@@ -139,7 +152,7 @@ export default () => {
       </CRow>
 
       <CModal show={showModal} onClose={handleCloseModal}>
-        <CModalHeader closeButton>Editar Aviso</CModalHeader>
+        <CModalHeader closeButton>{modalId === '' ? 'Novo' : 'Editar'} Aviso</CModalHeader>
         <CModalBody>
           <CFormGroup>
             <CLabel htmlFor="modal-title">Título do aviso</CLabel>

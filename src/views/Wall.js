@@ -178,8 +178,19 @@ export default () => {
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          <CButton color="primary" onClick={handleSaveModal} disabled={modalLoading}>{modalLoading ? 'Carregando' : 'Salvar'}</CButton>
-          <CButton color="secondary" onClick={handleCloseModal}>Cancelar</CButton>
+          <CButton
+            color="primary"
+            onClick={handleSaveModal}
+            disabled={modalLoading}
+          >
+            {modalLoading ? 'Carregando' : 'Salvar'}
+          </CButton>
+          <CButton
+            color="secondary"
+            onClick={handleCloseModal}
+          >
+            Cancelar
+          </CButton>
         </CModalFooter>
       </CModal>
     </>

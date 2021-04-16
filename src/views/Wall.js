@@ -7,6 +7,8 @@ import {
   CCardHeader,
   CButton,
   CCardBody,
+  CDataTable,
+  CButtonGroup,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
@@ -19,6 +21,12 @@ export default () => {
 
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
+
+  const fields = [
+    { label: "Título", key: "title" },
+    { label: "Data de criação", key: "datecreated", _style: {width: '200px'}},
+    { label: "Ações", key: "actions", _style: {width: '1px'}},
+  ];
 
   useEffect(() => {
     getList();
@@ -46,7 +54,29 @@ export default () => {
               <CIcon name="cil-check" /> Novo Aviso
             </CButton>
           </CCardHeader>
-          <CCardBody>123</CCardBody>
+          <CCardBody>
+            <CDataTable
+              items={list}
+              fields={fields}
+              loading={loading}
+              noItemsViewSlot=" "
+              hover
+              striped
+              bordered
+              pagination
+              itemsPerPage={1}
+              scopedSlots={{
+                actions: (item, index) => (
+                  <td>
+                    <CButtonGroup>
+                      <CButton color="info">Editar</CButton>
+                      <CButton color="danger">Excluir</CButton>
+                    </CButtonGroup>
+                  </td>
+                ),
+              }}
+            />
+          </CCardBody>
         </CCard>
       </CCol>
     </CRow>

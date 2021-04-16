@@ -35,6 +35,10 @@ export default () => {
   const [modalTitleField, setModalTitleField] = useState("");
   const [modalBodyField, setModalBodyField] = useState("");
 
+  const [modalId, setModalId] = useState('');
+
+  const [modalLoading, setModalLoading] = useState(false);
+
   const fields = [
     { label: "Título", key: "title" },
     {
@@ -65,8 +69,30 @@ export default () => {
   };
 
   const handleEditButton = (index) => {
+    setModalId(list[index]['id']);
+    setModalTitleField(list[index]['title']);
+    setModalBodyField(list[index]['body']);
     setShowModal(true);
   };
+
+  const handleSaveModal = async () => {
+    if(modalTitleField && modalBodyField) {
+      setModalLoading(true);
+      const result = await  api.updateWall(modalId, {
+        title: modalTitleField,
+        body: modalBodyField,
+      });
+      setModalLoading(false);
+      if(result.error) {
+        setShowModal(false);
+        getList();
+      } else {
+        alert(result.error);
+      }
+    } else {
+      alert('Preencha os campos');
+    }
+  }
 
   return (
     <>
@@ -90,7 +116,7 @@ export default () => {
                 striped
                 bordered
                 pagination
-                itemsPerPage={1}
+                itemsPerPage={5}
                 scopedSlots={{
                   actions: (item, index) => (
                     <td>
@@ -123,6 +149,7 @@ export default () => {
               placeholder="Digite um título para o aviso"
               value={modalTitleField}
               onChange={(e) => setModalTitleField(e.target.value)}
+              disabled={modalLoading}
             />
           </CFormGroup>
 
@@ -133,12 +160,13 @@ export default () => {
               placeholder="Digite o conteúdo do aviso"
               value={modalBodyField}
               onChange={(e) => setModalBodyField(e.target.value)}
+              disabled={modalLoading}
             />
           </CFormGroup>
         </CModalBody>
         <CModalFooter>
-          <CButton color="primary">Salvar</CButton>
-          <CButton color="secondary">Cancelar</CButton>
+          <CButton color="primary" onClick={handleSaveModal} disabled={modalLoading}>{modalLoading ? 'Carregando' : 'Salvar'}</CButton>
+          <CButton color="secondary" onClick={handleCloseModal}>Cancelar</CButton>
         </CModalFooter>
       </CModal>
     </>

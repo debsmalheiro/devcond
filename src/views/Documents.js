@@ -16,7 +16,6 @@ import {
   CFormGroup,
   CLabel,
   CInput,
-  CTextarea,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
@@ -33,9 +32,9 @@ export default () => {
   const [showModal, setShowModal] = useState(false);
 
   const [modalTitleField, setModalTitleField] = useState("");
-  const [modalBodyField, setModalBodyField] = useState("");
+  const [modalFileField, setModalFileField] = useState("");
 
-  const [modalId, setModalId] = useState('');
+  const [modalId, setModalId] = useState("");
 
   const [modalLoading, setModalLoading] = useState(false);
 
@@ -64,58 +63,64 @@ export default () => {
   };
 
   const handleEditButton = (index) => {
-    setModalId(list[index]['id']);
-    setModalTitleField(list[index]['title']);
-    setModalBodyField(list[index]['body']);
+    setModalId(list[index]["id"]);
+    setModalTitleField(list[index]["title"]);
+    //setModalBodyField(list[index]["body"]);
     setShowModal(true);
   };
 
   const handleDownloadButton = (index) => {
-    window.open(list[index]['fileurl']);
-  }
+    window.open(list[index]["fileurl"]);
+  };
 
   const handleRemoveButton = async (index) => {
-    if(window.confirm('Tem certeza que deseja excluir?')) {
-      const result = await api.removeWall(list[index]['id']);
-      if(result.error === '') {
+    if (window.confirm("Tem certeza que deseja excluir?")) {
+      const result = await api.removeWall(list[index]["id"]);
+      if (result.error === "") {
         getList();
       } else {
         alert(result.error);
       }
     }
-  }
+  };
 
   const handleSaveModal = async () => {
-    if(modalTitleField && modalBodyField) {
+    if (modalTitleField) {
       setModalLoading(true);
       let result;
       let data = {
         title: modalTitleField,
-        body: modalBodyField,
-      }
-      if(modalId === '') {
-        result = await api.addWall(data);
+      };
+      if (modalId === "") {
+        if(modalFileField) {
+          data.file = modalFileField;
+          result = await api.addDocument(data);
+        } else {
+          alert('Selecione o arquivo');
+          setModalLoading(false);
+          return;
+        }
       } else {
-        result = await  api.updateWall(modalId, data);
+        result = await api.updateDocument(modalId, data);
       }
       setModalLoading(false);
-      if(result.error === '') {
+      if (result.error === "") {
         setShowModal(false);
         getList();
       } else {
         alert(result.error);
       }
     } else {
-      alert('Preencha os campos');
+      alert("Preencha os campos");
     }
-  }
+  };
 
-  const handleNewWall = () => {
-    setModalId('');
-    setModalTitleField('');
-    setModalBodyField('');
+  const handleNewDocuments = () => {
+    setModalId("");
+    setModalTitleField("");
+    setModalFileField("");
     setShowModal(true);
-  }
+  };
 
   return (
     <>
@@ -125,7 +130,7 @@ export default () => {
 
           <CCard>
             <CCardHeader>
-              <CButton color="primary" onClick={handleNewWall}>
+              <CButton color="primary" onClick={handleNewDocuments}>
                 <CIcon name="cil-check" /> Novo Documento
               </CButton>
             </CCardHeader>
@@ -144,7 +149,7 @@ export default () => {
                   actions: (item, index) => (
                     <td>
                       <CButtonGroup>
-                      <CButton
+                        <CButton
                           color="success"
                           onClick={() => handleDownloadButton(index)}
                         >
@@ -173,14 +178,16 @@ export default () => {
       </CRow>
 
       <CModal show={showModal} onClose={handleCloseModal}>
-        <CModalHeader closeButton>{modalId === '' ? 'Novo' : 'Editar'} Aviso</CModalHeader>
+        <CModalHeader closeButton>
+          {modalId === "" ? "Novo" : "Editar"} Documento
+        </CModalHeader>
         <CModalBody>
           <CFormGroup>
-            <CLabel htmlFor="modal-title">Título do aviso</CLabel>
+            <CLabel htmlFor="modal-title">Título do documento</CLabel>
             <CInput
               type="text"
               id="modal-title"
-              placeholder="Digite um título para o aviso"
+              placeholder="Digite um título para o documento"
               value={modalTitleField}
               onChange={(e) => setModalTitleField(e.target.value)}
               disabled={modalLoading}
@@ -188,13 +195,13 @@ export default () => {
           </CFormGroup>
 
           <CFormGroup>
-            <CLabel htmlFor="modal-body">Corpo do aviso</CLabel>
-            <CTextarea
-              id="modal-body"
-              placeholder="Digite o conteúdo do aviso"
-              value={modalBodyField}
-              onChange={(e) => setModalBodyField(e.target.value)}
-              disabled={modalLoading}
+            <CLabel htmlFor="modal-file">Arquivo (PDF)</CLabel>
+            <CInput
+              type="file"
+              id="file"
+              name="file"
+              placeholder="Escolha um arquivo"
+              onChange={e => setModalFileField(e.target.files[0])}
             />
           </CFormGroup>
         </CModalBody>
@@ -204,12 +211,9 @@ export default () => {
             onClick={handleSaveModal}
             disabled={modalLoading}
           >
-            {modalLoading ? 'Carregando' : 'Salvar'}
+            {modalLoading ? "Carregando" : "Salvar"}
           </CButton>
-          <CButton
-            color="secondary"
-            onClick={handleCloseModal}
-          >
+          <CButton color="secondary" onClick={handleCloseModal}>
             Cancelar
           </CButton>
         </CModalFooter>

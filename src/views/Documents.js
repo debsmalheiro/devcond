@@ -101,6 +101,9 @@ export default () => {
           return;
         }
       } else {
+          if(modalFileField) {
+            data.file = modalFileField;
+          }
         result = await api.updateDocument(modalId, data);
       }
       setModalLoading(false);

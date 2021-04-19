@@ -70,6 +70,10 @@ export default () => {
     setShowModal(true);
   };
 
+  const handleDownloadButton = (index) => {
+    window.open(list[index]['fileurl']);
+  }
+
   const handleRemoveButton = async (index) => {
     if(window.confirm('Tem certeza que deseja excluir?')) {
       const result = await api.removeWall(list[index]['id']);

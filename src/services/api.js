@@ -79,5 +79,12 @@ export default () => {
       let json = await request("delete", `/wall/${id}`, {}, token);
       return json;
     },
+
+    // Listar os documentos
+    getDocuments: async () => {
+      let token = localStorage.getItem("token");
+      let json = await request("get", "/docs", {}, token);
+      return json;
+    },
   };
 };

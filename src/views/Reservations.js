@@ -42,6 +42,9 @@ export default () => {
   const [modalUnitList, setModalUnitList] = useState([]);
   const [modalAreaList, setModalAreaList] = useState([]);
 
+  const [modalUnitId, setModalUnitId] = useState(0);
+  const [modalAreaId, setModalAreaId] = useState(0);
+
   const fields = [
     { label: "Unidade", key: "name_unit", sorter: false },
     { label: "Área", key: "name_area", sorter: false },
@@ -223,7 +226,7 @@ export default () => {
             <CSelect
               id="modal-unit"
               custom
-              // onChange={}
+              onChange={e => setModalUnitId(e.target.value)}
             >
               {modalUnitList.map((item, index) => (
                 <option 
@@ -241,7 +244,7 @@ export default () => {
             <CSelect
               id="modal-area"
               custom
-              // onChange={}
+              onChange={e => setModalAreaId(e.target.value)}
             >
               {modalAreaList.map((item, index) => (
                 <option 

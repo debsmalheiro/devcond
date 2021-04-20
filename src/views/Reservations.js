@@ -222,12 +222,12 @@ export default () => {
               id="modal-unit"
               custom
               onChange={(e) => setModalUnitId(e.target.value)}
+              value={modalUnitId}
             >
               {modalUnitList.map((item, index) => (
                 <option
                   key={index}
                   value={item.id}
-                  selected={item.id === modalUnitId}
                 >
                   {item.name}
                 </option>
@@ -241,12 +241,12 @@ export default () => {
               id="modal-area"
               custom
               onChange={(e) => setModalAreaId(e.target.value)}
+              value={modalAreaId}
             >
               {modalAreaList.map((item, index) => (
                 <option
                   key={index}
                   value={item.id}
-                  selected={item.id === modalAreaId}
                 >
                   {item.title}
                 </option>

@@ -45,7 +45,7 @@ export default () => {
   const [modalUnitId, setModalUnitId] = useState(0);
   const [modalAreaId, setModalAreaId] = useState(0);
   const [modalDateField, setModalDateField] = useState("");
- 
+
   const fields = [
     { label: "Unidade", key: "name_unit", sorter: false },
     { label: "Área", key: "name_area", sorter: false },
@@ -96,8 +96,9 @@ export default () => {
 
   const handleEditButton = (index) => {
     setModalId(list[index]["id"]);
-    setModalTitleField(list[index]["title"]);
-    //setModalBodyField(list[index]["body"]);
+    setModalUnitId(list[index]["id_unit"]);
+    setModalAreaId(list[index]["id_area"]);
+    setModalDateField(list[index]["reservation_date"]);
     setShowModal(true);
   };
 
@@ -150,10 +151,11 @@ export default () => {
     }
   };
 
-  const handleNewDocuments = () => {
+  const handleNewReservations = () => {
     setModalId("");
-    setModalTitleField("");
-    setModalFileField("");
+    setModalUnitId(modalUnitList[0]["id"]);
+    setModalAreaId(modalAreaList[0]["id"]);
+    setModalDateField("");
     setShowModal(true);
   };
 
@@ -165,10 +167,12 @@ export default () => {
 
           <CCard>
             <CCardHeader>
-              <CButton 
-                color="primary" 
-                onClick={handleNewDocuments}
-                disabled={modalUnitList.length === 0 || modalAreaList.length === 0}
+              <CButton
+                color="primary"
+                onClick={handleNewReservations}
+                disabled={
+                  modalUnitList.length === 0 || modalAreaList.length === 0
+                }
               >
                 <CIcon name="cil-check" /> Nova Reserva
               </CButton>
@@ -196,7 +200,10 @@ export default () => {
                         <CButton
                           color="info"
                           onClick={() => handleEditButton(index)}
-                          disabled={modalUnitList.length === 0 || modalAreaList.length === 0}
+                          disabled={
+                            modalUnitList.length === 0 ||
+                            modalAreaList.length === 0
+                          }
                         >
                           Editar
                         </CButton>
@@ -221,18 +228,18 @@ export default () => {
           {modalId === "" ? "Novo" : "Editar"} Reserva
         </CModalHeader>
         <CModalBody>
-
           <CFormGroup>
             <CLabel htmlFor="modal-unit">Unidade</CLabel>
             <CSelect
               id="modal-unit"
               custom
-              onChange={e => setModalUnitId(e.target.value)}
+              onChange={(e) => setModalUnitId(e.target.value)}
             >
               {modalUnitList.map((item, index) => (
-                <option 
+                <option
                   key={index}
                   value={item.id}
+                  selected={item.id === modalUnitId}
                 >
                   {item.name}
                 </option>
@@ -245,12 +252,13 @@ export default () => {
             <CSelect
               id="modal-area"
               custom
-              onChange={e => setModalAreaId(e.target.value)}
+              onChange={(e) => setModalAreaId(e.target.value)}
             >
               {modalAreaList.map((item, index) => (
-                <option 
+                <option
                   key={index}
                   value={item.id}
+                  selected={item.id === modalAreaId}
                 >
                   {item.title}
                 </option>
@@ -268,7 +276,6 @@ export default () => {
               disabled={modalLoading}
             />
           </CFormGroup>
-
         </CModalBody>
         <CModalFooter>
           <CButton

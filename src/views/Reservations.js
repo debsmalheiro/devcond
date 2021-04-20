@@ -102,10 +102,6 @@ export default () => {
     setShowModal(true);
   };
 
-  const handleDownloadButton = (index) => {
-    window.open(list[index]["fileurl"]);
-  };
-
   const handleRemoveButton = async (index) => {
     if (window.confirm("Tem certeza que deseja excluir?")) {
       const result = await api.removeDocument(list[index]["id"]);
@@ -271,7 +267,7 @@ export default () => {
             <CInput
               type="text"
               id="modal-date"
-              value={modalDateField}
+              value={modalDateField.reservation_date_formatted} /* VERIFICAR */
               onChange={(e) => setModalDateField(e.target.value)}
               disabled={modalLoading}
             />

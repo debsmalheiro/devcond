@@ -134,5 +134,14 @@ export default () => {
       let json = await request("delete", `/doc/${id}`, {}, token);
       return json;
     },
+
+    // Pegar a lista de Reservas para
+    getReservations: async () => {
+      let token = localStorage.getItem("token");
+      let json = await request("get", `/reservations`, {}, token);
+      return json;
+    },
+
+    
   };
 };

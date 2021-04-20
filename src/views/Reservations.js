@@ -91,7 +91,10 @@ export default () => {
     setShowModal(false);
   };
 
-  const handleEditButton = (index) => {
+  const handleEditButton = (id) => {
+    /* Correção do bug data table no filter */
+    let index = list.findIndex(v => v.id === id); 
+
     setModalId(list[index]["id"]);
     setModalUnitId(list[index]["id_unit"]);
     setModalAreaId(list[index]["id_area"]);
@@ -184,7 +187,7 @@ export default () => {
                       <CButtonGroup>
                         <CButton
                           color="info"
-                          onClick={() => handleEditButton(index)}
+                          onClick={() => handleEditButton(item.id)}
                           disabled={
                             modalUnitList.length === 0 ||
                             modalAreaList.length === 0

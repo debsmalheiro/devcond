@@ -16,6 +16,7 @@ import {
   CFormGroup,
   CLabel,
   CInput,
+  CSelect,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
@@ -213,10 +214,47 @@ export default () => {
 
       <CModal show={showModal} onClose={handleCloseModal}>
         <CModalHeader closeButton>
-          {modalId === "" ? "Novo" : "Editar"} Documento
+          {modalId === "" ? "Novo" : "Editar"} Reserva
         </CModalHeader>
         <CModalBody>
+
           <CFormGroup>
+            <CLabel htmlFor="modal-unit">Unidade</CLabel>
+            <CSelect
+              id="modal-unit"
+              custom
+              // onChange={}
+            >
+              {modalUnitList.map((item, index) => (
+                <option 
+                  key={index}
+                  value={item.id}
+                >
+                  {item.name}
+                </option>
+              ))}
+            </CSelect>
+          </CFormGroup>
+
+          <CFormGroup>
+            <CLabel htmlFor="modal-area">Área</CLabel>
+            <CSelect
+              id="modal-area"
+              custom
+              // onChange={}
+            >
+              {modalAreaList.map((item, index) => (
+                <option 
+                  key={index}
+                  value={item.id}
+                >
+                  {item.title}
+                </option>
+              ))}
+            </CSelect>
+          </CFormGroup>
+
+          {/* <CFormGroup>
             <CLabel htmlFor="modal-title">Título do documento</CLabel>
             <CInput
               type="text"
@@ -226,18 +264,8 @@ export default () => {
               onChange={(e) => setModalTitleField(e.target.value)}
               disabled={modalLoading}
             />
-          </CFormGroup>
+          </CFormGroup> */}
 
-          <CFormGroup>
-            <CLabel htmlFor="modal-file">Arquivo (PDF)</CLabel>
-            <CInput
-              type="file"
-              id="file"
-              name="file"
-              placeholder="Escolha um arquivo"
-              onChange={(e) => setModalFileField(e.target.files[0])}
-            />
-          </CFormGroup>
         </CModalBody>
         <CModalFooter>
           <CButton

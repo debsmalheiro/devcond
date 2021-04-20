@@ -163,7 +163,7 @@ export default () => {
               <CButton 
                 color="primary" 
                 onClick={handleNewDocuments}
-                disabled={modalUnitList.length === 0 || modalAreas.length === 0}
+                disabled={modalUnitList.length === 0 || modalAreaList.length === 0}
               >
                 <CIcon name="cil-check" /> Nova Reserva
               </CButton>
@@ -191,7 +191,7 @@ export default () => {
                         <CButton
                           color="info"
                           onClick={() => handleEditButton(index)}
-                          disabled={modalUnitList.length === 0 || modalAreas.length === 0}
+                          disabled={modalUnitList.length === 0 || modalAreaList.length === 0}
                         >
                           Editar
                         </CButton>

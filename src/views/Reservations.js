@@ -32,9 +32,6 @@ export default () => {
 
   const [showModal, setShowModal] = useState(false);
 
-  const [modalTitleField, setModalTitleField] = useState("");
-  const [modalFileField, setModalFileField] = useState("");
-
   const [modalId, setModalId] = useState("");
 
   const [modalLoading, setModalLoading] = useState(false);
@@ -114,26 +111,18 @@ export default () => {
   };
 
   const handleSaveModal = async () => {
-    if (modalTitleField) {
+    if (modalUnitId && modalAreaId && modalDateField) {
       setModalLoading(true);
       let result;
       let data = {
-        title: modalTitleField,
+        id_unit: modalUnitId,
+        id_area: modalAreaId,
+        reservation_date: modalDateField,
       };
       if (modalId === "") {
-        if (modalFileField) {
-          data.file = modalFileField;
-          result = await api.addDocument(data);
-        } else {
-          alert("Selecione o arquivo");
-          setModalLoading(false);
-          return;
-        }
+        result = await  api.addReservation(data);
       } else {
-        if (modalFileField) {
-          data.file = modalFileField;
-        }
-        result = await api.updateDocument(modalId, data);
+        result = await api.updateReservation(modalId, data);
       }
       setModalLoading(false);
       if (result.error === "") {

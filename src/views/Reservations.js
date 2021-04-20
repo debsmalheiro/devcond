@@ -160,7 +160,11 @@ export default () => {
 
           <CCard>
             <CCardHeader>
-              <CButton color="primary" onClick={handleNewDocuments}>
+              <CButton 
+                color="primary" 
+                onClick={handleNewDocuments}
+                disabled={modalUnitList.length === 0 || modalAreas.length === 0}
+              >
                 <CIcon name="cil-check" /> Nova Reserva
               </CButton>
             </CCardHeader>

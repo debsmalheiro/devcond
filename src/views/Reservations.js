@@ -101,7 +101,7 @@ export default () => {
 
   const handleRemoveButton = async (index) => {
     if (window.confirm("Tem certeza que deseja excluir?")) {
-      const result = await api.removeDocument(list[index]["id"]);
+      const result = await api.removeReservation(list[index]["id"]);
       if (result.error === "") {
         getList();
       } else {
@@ -256,7 +256,7 @@ export default () => {
             <CInput
               type="text"
               id="modal-date"
-              value={modalDateField.reservation_date_formatted} /* VERIFICAR */
+              value={modalDateField} /* VERIFICAR */
               onChange={(e) => setModalDateField(e.target.value)}
               disabled={modalLoading}
             />

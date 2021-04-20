@@ -164,6 +164,12 @@ export default () => {
       let token = localStorage.getItem("token");
       let json = await request('put', `/reservations/${id}`, data, token);
       return json;
-    }
+    },
+
+    removeReservation: async (id) => {
+      let token = localStorage.getItem("token");
+      let json = await request("delete", `/reservation/${id}`, {}, token);
+      return json;
+    },
   };
 };

@@ -156,13 +156,13 @@ export default () => {
 
     addReservation: async (data) => {
       let token = localStorage.getItem("token");
-      let json = await request('post', '/reservations', data, token);
+      let json = await request('post', '/reservation', data, token);
       return json;
     },
 
     updateReservation: async (id, data) => {
       let token = localStorage.getItem("token");
-      let json = await request('put', `/reservations/${id}`, data, token);
+      let json = await request('put', `/reservation/${id}`, data, token);
       return json;
     },
 

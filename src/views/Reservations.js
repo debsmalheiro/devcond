@@ -38,6 +38,9 @@ export default () => {
 
   const [modalLoading, setModalLoading] = useState(false);
 
+  const [modalUnitList, setModalUnitList] = useState([]);
+  const [modalAreaList, setModalAreaList] = useState([]);
+
   const fields = [
     { label: "Unidade", key: "name_unit", sorter: false },
     { label: "Área", key: "name_area", sorter: false },
@@ -53,6 +56,8 @@ export default () => {
 
   useEffect(() => {
     getList();
+    getUnitList();
+    getAreaList();
   }, []);
 
   const getList = async () => {
@@ -63,6 +68,20 @@ export default () => {
       setList(result.list);
     } else {
       alert(result.error);
+    }
+  };
+
+  const getUnitList = async () => {
+    const result = await api.getUnits();
+    if (result.error === "") {
+      setModalUnitList(result.list);
+    }
+  };
+
+  const getAreaList = async () => {
+    const result = await api.getAreas();
+    if (result.error === "") {
+      setModalAreaList(result.list);
     }
   };
 
@@ -142,7 +161,7 @@ export default () => {
           <CCard>
             <CCardHeader>
               <CButton color="primary" onClick={handleNewDocuments}>
-                <CIcon name="cil-check" /> Novo Documento
+                <CIcon name="cil-check" /> Nova Reserva
               </CButton>
             </CCardHeader>
             <CCardBody>
@@ -159,12 +178,10 @@ export default () => {
                 pagination
                 itemsPerPage={5}
                 scopedSlots={{
-                  'reservation_date': (item) => (
-                    <td>
-                      {item.reservation_date_formatted}
-                    </td>
+                  reservation_date: (item) => (
+                    <td>{item.reservation_date_formatted}</td>
                   ),
-                  'actions': (item, index) => (
+                  actions: (item, index) => (
                     <td>
                       <CButtonGroup>
                         <CButton

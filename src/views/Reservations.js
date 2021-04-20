@@ -191,6 +191,7 @@ export default () => {
                         <CButton
                           color="info"
                           onClick={() => handleEditButton(index)}
+                          disabled={modalUnitList.length === 0 || modalAreas.length === 0}
                         >
                           Editar
                         </CButton>

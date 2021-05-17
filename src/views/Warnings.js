@@ -1,5 +1,7 @@
 // Dependencies
 import React, { useState, useEffect } from "react";
+import Lightbox from "react-image-lightbox";
+import 'react-image-lightbox/style.css';
 import {
   CRow,
   CCol,
@@ -19,6 +21,9 @@ export default () => {
 
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
+
+  const [photoList, setPhotoList] = useState([]);
+  const [photoListIndex, setPhotoListIndex] = useState(0);
 
   const fields = [
     { label: "Resolvido", key: "status", filter: false},

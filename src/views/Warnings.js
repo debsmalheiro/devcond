@@ -17,6 +17,7 @@ import {
   CLabel,
   CInput,
   CSelect,
+  CSwitch,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
 
@@ -56,6 +57,10 @@ export default () => {
     }
   };
 
+  const handleSwitchClick = () => {
+
+  }
+
   return (
     <>
       <CRow>
@@ -86,7 +91,17 @@ export default () => {
                     <td>
                       {item.datecreated_formatted}
                     </td>
+                  ),
+                  'status': (item) => (
+                    <td>
+                      <CSwitch
+                        color="success"
+                        checked={false}
+                        onChange={(e) => handleSwitchClick(e, item)}
+                      />
+                    </td>
                   )
+
                 }}
               />
             </CCardBody>

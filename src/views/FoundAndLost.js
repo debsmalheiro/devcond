@@ -60,9 +60,9 @@ export default () => {
     }
   }
 
-  const showLightBox = (photos) => {
+  const showLightBox = (photo) => {
     setPhotoListIndex(0);
-    setPhotoList(photos);
+    setPhotoList(photo);
   }
   return (
     <>
@@ -85,11 +85,11 @@ export default () => {
                 pagination
                 itemsPerPage={10}
                 scopedSlots={{
-                  'photos': (item) => (
+                  'photo': (item) => (
                     <td>
-                      {item.photos.length > 0 &&
-                        <CButton color="success" onClick={() => showLightBox(item.photos)}>
-                          {item.photos.length} foto{item.photos.length !== 1 ? 's' : ''}
+                      {item.photo &&
+                        <CButton color="success" onClick={() => showLightBox(item.photo)}>
+                          Ver foto
                         </CButton>
                       }
                     </td>
@@ -103,7 +103,7 @@ export default () => {
                     <td>
                       <CSwitch
                         color="success"
-                        checked={item.status === "RESOLVED"}
+                        checked={item.status === "recovered"}
                         onChange={(e) => handleSwitchClick(item)}
                       />
                     </td>

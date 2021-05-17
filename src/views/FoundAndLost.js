@@ -49,7 +49,7 @@ export default () => {
 
   const handleSwitchClick = async (item) => {
     setLoading(true);
-    const result = await api.updateWarning(item.id);
+    const result = await api.updateFoundAndLost(item.id);
     setLoading(false);
 
     if(result.error === '') {

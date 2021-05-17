@@ -54,7 +54,8 @@ export default () => {
   }
 
   const showLightBox = (photos) => {
-
+    setPhotoListIndex(0);
+    setPhotoList(photos);
   }
   return (
     <>

@@ -82,8 +82,12 @@ export default () => {
                       ...
                     </td>
                   ),
-                  }
-                }
+                  'datecreated': (item) => (
+                    <td>
+                      {item.datecreated_formatted}
+                    </td>
+                  )
+                }}
               />
             </CCardBody>
           </CCard>

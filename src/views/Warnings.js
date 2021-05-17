@@ -77,10 +77,13 @@ export default () => {
                 pagination
                 itemsPerPage={10}
                 scopedSlots={{
-                  reservation_date: (item) => (
-                    <td>{item.reservation_date_formatted}</td>
-                  )
-                }}
+                  'photos': (item) => (
+                    <td>
+                      ...
+                    </td>
+                  ),
+                  }
+                }
               />
             </CCardBody>
           </CCard>

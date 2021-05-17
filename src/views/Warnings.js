@@ -4,22 +4,11 @@ import {
   CRow,
   CCol,
   CCard,
-  CCardHeader,
   CButton,
   CCardBody,
   CDataTable,
-  CButtonGroup,
-  CModal,
-  CModalHeader,
-  CModalBody,
-  CModalFooter,
-  CFormGroup,
-  CLabel,
-  CInput,
-  CSelect,
   CSwitch,
 } from "@coreui/react";
-import CIcon from "@coreui/icons-react";
 
 // API
 import useApi from "../services/api";
@@ -30,8 +19,6 @@ export default () => {
 
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
-
-
 
   const fields = [
     { label: "Resolvido", key: "status", filter: false},

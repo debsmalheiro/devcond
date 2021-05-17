@@ -83,7 +83,7 @@ export default () => {
                     <td>
                       <CSwitch
                         color="success"
-                        checked={false}
+                        checked={item.status === "RESOLVED"}
                         onChange={(e) => handleSwitchClick(e, item)}
                       />
                     </td>

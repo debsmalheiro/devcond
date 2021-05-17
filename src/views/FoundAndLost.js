@@ -26,12 +26,11 @@ export default () => {
   const [photoListIndex, setPhotoListIndex] = useState(0);
 
   const fields = [
-    { label: "Resolvido", key: "status", filter: false},
-    { label: "Unidade", key: "name_unit", sorter: false},
-    { label: "Título", key: "title", sorter: false},
-    { label: "Fotos", key: "photos", sorter: false, filter: false},
+    { label: "Recuperado", key: "status", filter: false},
+    { label: "Local encontrado", key: "where", sorter: false},
+    { label: "Descrição", key: "description", sorter: false},
+    { label: "Foto", key: "photo", sorter: false, filter: false},
     { label: "Data", key: "datecreated"},
-
   ];
 
   useEffect(() => {

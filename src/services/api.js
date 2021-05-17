@@ -103,7 +103,7 @@ export default () => {
         },
         body: formData,
       });
-      
+
       let json = await req.json();
       return json;
     },
@@ -124,7 +124,7 @@ export default () => {
         },
         body: formData,
       });
-      
+
       let json = await req.json();
       return json;
     },
@@ -171,5 +171,19 @@ export default () => {
       let json = await request("delete", `/reservation/${id}`, {}, token);
       return json;
     },
+
+    // Ocorrências
+
+    getWarnings: async () => {
+      let token = localStorage.getItem('token');
+      let json = await request('get', '/warnings', {}, token);
+      return json;
+    },
+
+    updateWarning: async (id) => {
+      let token = localStorage.getItem("token");
+      let json = await request('put', `/warning/${id}`, {}, token);
+      return json;
+    }
   };
 };

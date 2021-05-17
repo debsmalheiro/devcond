@@ -39,7 +39,7 @@ export default () => {
 
   const getList = async () => {
     setLoading(true);
-    const result = await api.getWarnings();
+    const result = await api.getFoundAndLost();
     setLoading(false);
     if (result.error === "") {
       setList(result.list);

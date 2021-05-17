@@ -22,8 +22,7 @@ export default () => {
   const [loading, setLoading] = useState(true);
   const [list, setList] = useState([]);
 
-  const [photoList, setPhotoList] = useState([]);
-  const [photoListIndex, setPhotoListIndex] = useState(0);
+  const [photoUrl, setPhotoUrl] = useState('');
 
   const fields = [
     { label: "Recuperado", key: "status", filter: false},
@@ -60,9 +59,8 @@ export default () => {
     }
   }
 
-  const showLightBox = (photo) => {
-    setPhotoListIndex(0);
-    setPhotoList(photo);
+  const showLightBox = (url) => {
+    setPhotoUrl(url);
   }
   return (
     <>
@@ -116,27 +114,10 @@ export default () => {
         </CCol>
       </CRow>
 
-      {photoList.length > 0 &&
+      {photoUrl &&
         <Lightbox
-          mainSrc={photoList[photoListIndex]}
-          nextSrc={photoList[photoListIndex + 1]}
-          prevSrc={photoList[photoListIndex - 1]}
-
-          onCloseRequest={() => setPhotoList([])}
-
-          onMovePrevRequest={() => {
-              if(photoList[photoListIndex - 1] !== undefined) {
-                setPhotoListIndex(photoListIndex - 1);
-              }
-            }
-          }
-          onMoveNextRequest={() => {
-              if(photoList[photoListIndex + 1] !== undefined) {
-                setPhotoListIndex(photoListIndex + 1);
-              }
-            }
-          }
-
+          mainSrc={photoUrl}
+          onCloseRequest={() => setPhotoUrl('')}
           reactModalStyle={{overlay: {zIndex: 9999}}}
         />
       }

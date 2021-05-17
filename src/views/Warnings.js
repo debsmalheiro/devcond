@@ -48,6 +48,9 @@ export default () => {
 
   }
 
+  const showLightBox = (photos) => {
+
+  }
   return (
     <>
       <CRow>
@@ -71,7 +74,11 @@ export default () => {
                 scopedSlots={{
                   'photos': (item) => (
                     <td>
-                      ...
+                      {item.photos.length > 0 &&
+                        <CButton color="success" onClick={() => showLightBox(item.photos)}>
+                          {item.photos.length} foto{item.photos.length !== 1 ? 's' : ''}
+                        </CButton>
+                      }
                     </td>
                   ),
                   'datecreated': (item) => (
